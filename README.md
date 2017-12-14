@@ -28,3 +28,33 @@ HenCoder 绘制 4 练习项目
 ![](images/project_sample.png)
 
 练习做完，绘制第四期（绘制的辅助）的内容也就掌握得差不多了。
+
+### 总结
+视频中说 canvas 的几何变换方法是倒序的，这句话其实是不对的。
+事实上，canvas 的几何变换方法针对的是坐标系。
+例如，下面这段代码
+
+```java
+canvas.save();
+canvas.rotate(45, right, bottom);
+canvas.translate(width, 0);
+canvas.drawBitmap(bitmap, left, top, paint);
+canvas.restore();
+```
+
+实际上是先将坐标系以坐标(right, bottom)为中心，旋转45°后再将坐标系向右平移 width。
+注意，向右平移是相对旋转后的坐标系来讲的。
+如图，黑色表示原坐标系，绿色表示旋转后的坐标系，红色表示旋转加平移后的坐标系
+实心点代表坐标(left, top)，空心点代表坐标(right, bottom)
+
+![](images/coordinate_real.png)
+
+1代表原图，2代表旋转坐标系后的图，3代表旋转加平移后的图
+
+但是，对坐标系来进行几何变换往往不好理解，因为坐标系变了，代表着坐标的实际位置也变了，所以在 HenCoder 的视频中，
+提出了一个相对比较好理解的概念，就是 canvas 的变换针对的是 bitmap，但是变换方法是倒序的，如下图
+
+![](images/coordinate_not_real.png)
+
+1同样代表原图,由于变换方法倒序，所以2代表平移后的图，3代表平移后再以(right, bottom)为中心旋转45°后的图
+

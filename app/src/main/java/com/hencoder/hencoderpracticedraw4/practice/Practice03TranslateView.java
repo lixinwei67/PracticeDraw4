@@ -18,6 +18,10 @@ public class Practice03TranslateView extends View {
     Point point1 = new Point(200, 200);
     Point point2 = new Point(600, 200);
 
+    {
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.maps);
+    }
+
     public Practice03TranslateView(Context context) {
         super(context);
     }
@@ -30,15 +34,18 @@ public class Practice03TranslateView extends View {
         super(context, attrs, defStyleAttr);
     }
 
-    {
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.maps);
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        canvas.save();
+        canvas.translate(-100, -100);
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+        canvas.restore();
+
+        canvas.save();
+        canvas.translate(100, 100);
         canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
+        canvas.restore();
     }
 }
